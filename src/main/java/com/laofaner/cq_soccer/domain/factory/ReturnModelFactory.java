@@ -15,6 +15,7 @@ public class ReturnModelFactory {
 
     /**
      * 指定枚举结果和返回数据构造ReturnModel
+     *
      * @param resultEnum
      * @param data
      * @param <T>
@@ -24,6 +25,20 @@ public class ReturnModelFactory {
         ReturnModel<T> result = new ReturnModel<>();
         result.setCode(resultEnum.getCode());
         result.setMsg(resultEnum.getMsg());
+        result.setData(data);
+        return result;
+    }
+
+    /**
+     * 根据传入的实际data类型构造ReturnModel（默认为success）
+     * @param data
+     * @param <T>
+     * @return ReturnModel
+     */
+    public static <T extends Serializable> ReturnModel<T> generateReturnModel(T data) {
+        ReturnModel<T> result = new ReturnModel<>();
+        result.setCode(ResultEnum.SUCCESS.getCode());
+        result.setMsg(ResultEnum.SUCCESS.getMsg());
         result.setData(data);
         return result;
     }

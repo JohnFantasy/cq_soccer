@@ -42,7 +42,7 @@ public class SignUtil {
     private static final String NONCESTR = getNonceStr();
 
     //针对json请求参数获取签名
-    private static String getSignForJsonString(String jsonParams) {
+    public static String getSignForJsonString(String jsonParams) {
         if (StringUtils.isBlank(jsonParams)) {
             throw new RuntimeException(ExceptionEnum.PARAM_IS_NULL_EXCEPTION.getMessage());
         }
@@ -50,12 +50,12 @@ public class SignUtil {
     }
 
     //针对json格式请求参数验签
-    private static boolean checkSignForJson(String json, String nonceStr, String signature) {
+    public static boolean checkSignForJson(String json, String nonceStr, String signature) {
         return getSign(json, nonceStr).equals(signature);
     }
 
     //针对map格式请求参数获取签名
-    private static String getSignForMapParams(Map<String, String> mapParams) {
+    public static String getSignForMapParams(Map<String, String> mapParams) {
         if (CollectionUtils.isEmpty(mapParams)) {
             throw new RuntimeException(ExceptionEnum.PARAM_IS_NULL_EXCEPTION.getMessage());
         }
@@ -63,12 +63,12 @@ public class SignUtil {
     }
 
     //针对map格式请求参数验签
-    private static boolean checkSignForMap(Map<String, String> mapParams, String nonceStr, String signature) {
+    public static boolean checkSignForMap(Map<String, String> mapParams, String nonceStr, String signature) {
         return getSign(mapToOrderedString(mapParams), nonceStr).equals(signature);
     }
 
     //签名规则：appsecret+参数字符串+appsecret+随机字符串（5位）+appid
-    private static String getSign(String params, String nonceStr) {
+    public static String getSign(String params, String nonceStr) {
         return DigestUtils.md5Hex(APPSECRET + params + APPSECRET + nonceStr + APPID);
     }
 

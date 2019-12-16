@@ -2,6 +2,7 @@ package com.laofaner.cq_soccer.utils;
 
 
 import com.laofaner.cq_soccer.domain.enums.ExceptionEnum;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
@@ -27,18 +28,37 @@ import java.util.*;
 public class SignUtil {
 
     public static void main(String[] args) {
-        Map<String,String> map = new HashMap<>();
-        map.put("alpha","hahah");
-        map.put("cat","hahah");
-        map.put("beta","hahah");
-        map.put("123","hahah");
-        map.put("b23","hahah");
-
-        System.out.println(SignUtil.mapToOrderedString(map));
+//        Map<String,String> map = new HashMap<>();
+//        map.put("name","zhangsan");
+//        map.put("age","23");
+////        map.put("beta","hahah");
+////        map.put("123","hahah");
+////        map.put("b23","hahah");
+//        String signForMapParams = getSignForMapParams(map);
+//        System.out.println(signForMapParams);
+//
+//        System.out.println(SignUtil.mapToOrderedString(map));
+        HashMap<String, String> map = new HashMap<>();
+        map.put("filters","{\"latitude\":\"2957054\",\"longitude\":\"10657594\",\"couponName\":\"上井\"}");
+        map.put("pageNum","1");
+        map.put("pageSize","20");
+//        String nonceStr = SignUtil.getNonceStr();
+        String nonceStr = "K6L57";
+        String param = SignUtil.mapToOrderedString(map);
+        String sign = SignUtil.getSign(param, nonceStr);
+        System.out.println("noncestr "+nonceStr);
+        System.out.println("param "+param);
+        System.out.println("sign "+sign);
+        String str1 = "!QAZxsw2#EDCvfr4%TGBnhy6&UJM,ki8filters{\"latitude\":\"2957054\",\"longitude\":\"10657594\",\"couponName\":\"上井\"}pageNum1pageSize20!QAZxsw2#EDCvfr4%TGBnhy6&UJM,ki8K6L57Welcomehome2020";
+//        String str2 = "!QAZxsw2#EDCvfr4%TGBnhy6&UJM,ki8filters{\"latitude\":\"2957054\",\"longitude\":\"10657594\"," +
+//                "\"couponName\":\"上井\"}pageNum1pageSize20!QAZxsw2#EDCvfr4%TGBnhy6&UJM,ki8K6L57WelcomeHome2020";
+//        System.out.println(str2);
+//        String sig2 = DigestUtils.md5Hex(str2);
+//        System.out.println(sig2);
     }
 
-    private static final String APPID = "APPID";
-    private static final String APPSECRET = "XXXXXX";
+    private static final String APPID = "WelcomeHome2020";
+    private static final String APPSECRET = "!QAZxsw2#EDCvfr4%TGBnhy6&UJM,ki8";
     private static final String NONCESTR = getNonceStr();
 
     //针对json请求参数获取签名
@@ -69,7 +89,9 @@ public class SignUtil {
 
     //签名规则：appsecret+参数字符串+appsecret+随机字符串（5位）+appid
     public static String getSign(String params, String nonceStr) {
-        return DigestUtils.md5Hex(APPSECRET + params + APPSECRET + nonceStr + APPID);
+        String toString = APPSECRET + params + APPSECRET + nonceStr + APPID;
+        System.out.println(toString);
+        return DigestUtils.md5Hex(toString);
     }
 
     //map转为按key字典升序排序的字符串

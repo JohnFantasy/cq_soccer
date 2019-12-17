@@ -95,7 +95,7 @@ public class SignUtil {
     }
 
     //map转为按key字典升序排序的字符串
-    private static String mapToOrderedString(Map<String, String> map) {
+    public static String mapToOrderedString(Map<String, String> map) {
         TreeMap<String, String> orderedMap = new TreeMap<>(map);
         Set<Map.Entry<String, String>> entries = orderedMap.entrySet();
         StringBuilder sb = new StringBuilder();
@@ -106,7 +106,7 @@ public class SignUtil {
     }
 
     //获取5位随机字符串
-    private static String getNonceStr() {
+    public static String getNonceStr() {
 
         //定义一个字符串（A-Z，a-z，0-9）即62位；
         String str = "zxcvbnmlkjhgfdsaqwertyuiopQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
